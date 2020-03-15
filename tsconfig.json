@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "checkJs": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "outDir": "./build",
+    "resolveJsonModule": true,
+    "rootDir": "./src",
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2018",
+    "typeRoots": ["./src/types", "./node_modules/@types"]
+  },
+  "include": ["./src"],
+  "exclude": ["**/__mocks__", "**/__tests__"]
+}
