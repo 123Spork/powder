@@ -4,7 +4,7 @@ import PowderApp from './app'
 
 class App extends React.Component {
   componentDidMount() {
-    new PowderApp()
+    new PowderApp({fps:60})
   }
 
   render() {

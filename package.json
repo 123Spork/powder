@@ -10,14 +10,11 @@
   "homepage": "",
   "main": "./src/server.ts",
   "scripts": {
-    "clean": "rm -rf node_modules && rm -f package-lock.json",
     "coverage": "jest --coverage",
-    "project-generate": "bash platform/project-generate.sh",
-    "watch": "webpack-dev-server --mode development --open --hot",
+    "watch": "npm run build && webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production",
     "test": "jest --watch",
-    "type-check": "tsc",
-    "update-template": "bash platform/update-template.sh"
+    "type-check": "tsc"
   },
   "repository": {
     "type": "git",
@@ -25,26 +22,21 @@
   },
   "dependencies": {
     "check-node-version": "^3.3.0",
-    "jsonwebtoken": "^8.5.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0"
   },
   "devDependencies": {
-    "@types/finalhandler": "^1.1.0",
-    "@types/jsonwebtoken": "^8.3.2",
     "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
     "@types/serve-static": "^1.13.3",
-    "awesome-typescript-loader": "^5.2.1",
     "copy-webpack-plugin": "^5.1.1",
+    "awesome-typescript-loader": "^5.2.1",
     "css-loader": "^3.4.2",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
-    "git-branch-is": "^2.1.0",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.7.1",
-    "nodemon": "^1.18.11",
     "prettier": "^1.16.4",
     "react-node": "^1.0.2",
     "style-loader": "^1.1.3",

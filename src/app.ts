@@ -1,37 +1,54 @@
-import { PENode } from './canvas-components/PeNode'
-import { PEApp } from './canvas-components/PEApp'
+import { PEApp, PEAppOptionsInterface } from './canvas-components/pe-app'
 import Inventory from './game-components/ui/inventory'
 import ChatBar from './game-components/ui/chatbar'
 import './app.css'
+import { PESound } from './canvas-components/pe-sound'
+import { PEPlayerCharacterSprite } from './canvas-components/pe-player-character-sprite.'
+import { PECharacterSprite } from './canvas-components/pe-character-sprite'
 
 export default class PowderApp extends PEApp {
-  peNode:PENode|null = null
+  peNode: PEPlayerCharacterSprite
 
-  init(){
+  aiNode: PECharacterSprite
 
-    this.addChild((new Inventory()))
+  constructor(options?: PEAppOptionsInterface) {
+    super(options)
 
-    this.addChild((new ChatBar()))
-
-    this.peNode = new PENode({
-      color: '#ffff00',
+    this.peNode = new PEPlayerCharacterSprite({
+      texture: 'images/test.png',
+      textureSize: { x: 200, y: 200 },
+      position: { x: 320, y: 128 },
+      color: '#ff0000',
       size: { x: 100, y: 100 },
-      position: { x: 20, y: 20 }
+      walkSpeed: 64
     })
-    this.peNode.addChild(
-      new PENode({ color: '#ff0000', size: { x: 20, y: 20 } })
-    )
-    this.peNode.setVelocity({x:35,y:35})
-    this.addChild(this.peNode)
-    
+
+    this.aiNode = new PEPlayerCharacterSprite({
+      texture: 'images/test.png',
+      textureSize: { x: 200, y: 200 },
+      position: { x: 320, y: 128 },
+      color: '#ff0000',
+      size: { x: 100, y: 100 },
+      walkSpeed: 64,
+      isLoopingPath: true
+    })
+
+    this.aiNode.queueWalkRight(3)
+    this.aiNode.queueWalkDown(3)
+    this.aiNode.queueWalkPause(5000)
+    this.aiNode.queueWalkLeft(3)
+    this.aiNode.queueWalkUp(3)
+
+    const sound = new PESound({
+      sound: 'sounds/in-time.mp3',
+      isLoop: true
+    })
+    sound.delayPlay(5000)
+
+    this.addChild(this.aiNode)
+    this.addChild(new Inventory())
+    this.addChild(new ChatBar())
   }
 
-  update(deltaTime:number){
-
-    if(this.peNode){
-      if(this.peNode.getPosition().x>this.canvas.width-100){
-        this.peNode.setVelocity({x:-1, y:-1})
-      }
-    }
-  }
+  update(_deltaTime: number) {}
 }

@@ -10,7 +10,6 @@ var config = {
   resolve: {
     extensions: [".ts", ".tsx", ".js"]
   },
-
   module: {
     rules: [
       {
@@ -27,7 +26,11 @@ var config = {
     new HtmlWebpackPlugin({
       template: './src/index.html'
     })
-  ]
+  ],
+  devServer: {
+    contentBase: path.join(__dirname, './src/assets'),
+    contentBasePublicPath: '/',
+  }
 };
 
 module.exports = config;
