@@ -2,12 +2,12 @@ import { PEKeyboardHandler } from './pe-keyboard-handler'
 import {
   PECharacterSpriteOptions,
   PECharacterSprite,
-  PECharacterSpriteDirectionEnum
+  PECharacterSpriteStepKeyEnum
 } from './pe-character-sprite'
 
 export class PEPlayerCharacterSprite extends PECharacterSprite {
   protected characterController: PEKeyboardHandler
-  protected _isWalkingAutonymously: boolean = false
+  protected _isWalkingAutonomously: boolean = false
 
   constructor(options: PECharacterSpriteOptions) {
     super(options)
@@ -18,48 +18,48 @@ export class PEPlayerCharacterSprite extends PECharacterSprite {
     this.characterController.registerKeyControl('ArrowDown')
   }
 
-  set isWalkingAutonymously(isAutonymous: boolean) {
-    this._isWalkingAutonymously = isAutonymous
+  set isWalkingAutonomously(isWalkingAutonomously: boolean) {
+    this._isWalkingAutonomously = isWalkingAutonomously
   }
 
-  get isWalkingAutonymously() {
-    return this._isWalkingAutonymously
+  get isWalkingAutonomously() {
+    return this._isWalkingAutonomously
   }
 
   update(deltaTime: number) {
-    if (!this.isWalkingAutonymously) {
+    if (!this.isWalkingAutonomously) {
       const isZeroVelocity = this.velocity.x == 0 && this.velocity.y == 0
       if (
         this.characterController.isKeyDown('ArrowLeft') &&
         (isZeroVelocity ||
-          (this.toWalkCells.length > 0 &&
-            this.toWalkCells[0].key == PECharacterSpriteDirectionEnum.RIGHT))
+          (this.steps.length > 0 &&
+            this.currentStep.key == PECharacterSpriteStepKeyEnum.WALK_RIGHT))
       ) {
-        this.toWalkCells = [{ key: PECharacterSpriteDirectionEnum.LEFT }]
+        this.steps = [{ key: PECharacterSpriteStepKeyEnum.WALK_LEFT }]
       }
       if (
         this.characterController.isKeyDown('ArrowRight') &&
         (isZeroVelocity ||
-          (this.toWalkCells.length > 0 &&
-            this.toWalkCells[0].key == PECharacterSpriteDirectionEnum.LEFT))
+          (this.steps.length > 0 &&
+            this.currentStep.key == PECharacterSpriteStepKeyEnum.WALK_LEFT))
       ) {
-        this.toWalkCells = [{ key: PECharacterSpriteDirectionEnum.RIGHT }]
+        this.steps = [{ key: PECharacterSpriteStepKeyEnum.WALK_RIGHT }]
       }
       if (
         this.characterController.isKeyDown('ArrowUp') &&
         (isZeroVelocity ||
-          (this.toWalkCells.length > 0 &&
-            this.toWalkCells[0].key == PECharacterSpriteDirectionEnum.DOWN))
+          (this.steps.length > 0 &&
+            this.currentStep.key == PECharacterSpriteStepKeyEnum.WALK_DOWN))
       ) {
-        this.toWalkCells = [{ key: PECharacterSpriteDirectionEnum.UP }]
+        this.steps = [{ key: PECharacterSpriteStepKeyEnum.WALK_UP }]
       }
       if (
         this.characterController.isKeyDown('ArrowDown') &&
         (isZeroVelocity ||
-          (this.toWalkCells.length > 0 &&
-            this.toWalkCells[0].key == PECharacterSpriteDirectionEnum.UP))
+          (this.steps.length > 0 &&
+            this.currentStep.key == PECharacterSpriteStepKeyEnum.WALK_UP))
       ) {
-        this.toWalkCells = [{ key: PECharacterSpriteDirectionEnum.DOWN }]
+        this.steps = [{ key: PECharacterSpriteStepKeyEnum.WALK_DOWN }]
       }
     }
     super.update(deltaTime)

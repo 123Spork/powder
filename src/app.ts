@@ -4,7 +4,10 @@ import ChatBar from './game-components/ui/chatbar'
 import './app.css'
 import { PESound } from './canvas-components/pe-sound'
 import { PEPlayerCharacterSprite } from './canvas-components/pe-player-character-sprite.'
-import { PECharacterSprite } from './canvas-components/pe-character-sprite'
+import {
+  PECharacterSprite,
+  PECharacterSpriteStepKeyEnum
+} from './canvas-components/pe-character-sprite'
 
 export default class PowderApp extends PEApp {
   peNode: PEPlayerCharacterSprite
@@ -33,11 +36,26 @@ export default class PowderApp extends PEApp {
       isLoopingPath: true
     })
 
-    this.aiNode.queueWalkRight(3)
-    this.aiNode.queueWalkDown(3)
-    this.aiNode.queueWalkPause(5000)
-    this.aiNode.queueWalkLeft(3)
-    this.aiNode.queueWalkUp(3)
+    this.aiNode.queueStep({
+      key: PECharacterSpriteStepKeyEnum.WALK_RIGHT,
+      value: 3
+    })
+    this.aiNode.queueStep({
+      key: PECharacterSpriteStepKeyEnum.WALK_DOWN,
+      value: 3
+    })
+    this.aiNode.queueStep({
+      key: PECharacterSpriteStepKeyEnum.STAND_STILL,
+      value: 5000
+    })
+    this.aiNode.queueStep({
+      key: PECharacterSpriteStepKeyEnum.WALK_LEFT,
+      value: 3
+    })
+    this.aiNode.queueStep({
+      key: PECharacterSpriteStepKeyEnum.WALK_UP,
+      value: 3
+    })
 
     const sound = new PESound({
       sound: 'sounds/in-time.mp3',

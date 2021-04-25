@@ -5,6 +5,7 @@ export interface PEAnimatedSpriteInterface extends PESpriteInterface {
   frameOffset: Vector2D
   textureSize: Vector2D
   delayFrameOffset: (frameOffset: Vector2D, delayMs: number) => void
+  runAnimation: (animationFrames: Vector2D[], frameDelayMs:number) => void
 }
 
 export interface PEAnimatedSpriteOptions extends PESpriteOptions {
@@ -44,6 +45,9 @@ export class PEAnimatedSprite extends PESprite
     setTimeout(() => {
       self.frameOffset = frameOffset
     }, delayMs)
+  }
+
+  runAnimation(_animationFrames: Vector2D[], _frameDelayMs:number): void {
   }
 
   render(ctx: CanvasRenderingContext2D, _deltaTime: number) {
